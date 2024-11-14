@@ -28,8 +28,17 @@ def makeLine(NStr: int | str = 10, symbol: str = "*"):
         print(symbol * len(NStr))
         return f"{symbol * len(NStr)}"
 
-def standardStr(Str: str):
+def processableStr(Str: str, toRemove: tuple = (" ", ".", ",", "'", '"')):
     Str = Str.upper()
+    # Delete all characters in toRemove
+    for remove in toRemove:
+        remove = str(remove)
+        Str = Str.split(remove)
+        TStr = ""
+        for each in Str:
+            TStr = TStr + " " + each
+        Str = TStr
+    # Make the final standarized text
     Str = Str.split()
     seen = []
     for i in Str:
@@ -38,4 +47,7 @@ def standardStr(Str: str):
     return seen
 
 if __name__ == "__main__":
-    print(standardStr("This is a test  for long text. This will be an example of sanatized  string or as I want to called it a text in a 'STANDARIZIED' form that you can use for any processing you want to make to the text or string."))
+    TestStr = "This is a test  for long text. This will be an example of sanatized  string or as I want to called it a text in a 'STANDARIZIED' form that you can use for any processing you want to make to the text or string."
+    print(processableStr(TestStr))
+    for each in processableStr(TestStr):
+        print(each)

@@ -1,28 +1,4 @@
-# "Librería"
-
 from math import cos, sin, atan2, tau
-
-def InputCheckInt(msg, vmin = -9999999999999, vmax = 9999999999999):
-    while True:
-        try:
-            Num = int(input(msg))
-            if Num < vmin or Num > vmax:
-                print(f"Please enter a number between {vmin} and {vmax}.")
-            else:
-                return Num
-        except ValueError:
-            print("ERROR. Input must be an integer.")
-
-def InputCheckFloat(msg, vmin = -9999999999999, vmax = 9999999999999):
-    while True:
-        try:
-            Num = float(input(msg))
-            if Num < vmin or Num > vmax:
-                print(f"Please enter a number between {vmin} and {vmax}.")
-            else:
-                return Num
-        except ValueError:
-            print("ERROR. Input must be a float.")
 
 # Just went full English from this part xD
 class Vec2:
@@ -351,3 +327,89 @@ class EulerF:
             return f"e^{self.theta}i"
         else:
             return f"{self.abs}*e^{self.theta}i"
+
+class Point:
+    def __init__(self, coord_x, coord_y):
+        self.x = coord_x
+        self.y = coord_y
+
+    def __add__(self, other):
+        if not isinstance(other, Point):
+            raise NotImplementedError
+        return Point(self.x + other.x, self.y + other.y)
+
+    def __sub__(self, other):
+        if not isinstance(other, Point):
+            raise NotImplementedError
+        return Point(self.x - other.x, self.y - other.y)
+
+    def __mul__(self, other):
+        if not isinstance(other, (int, float)):
+            raise NotImplementedError
+        return Point(self.x * other, self.y * other)
+
+    def __truediv__(self, other):
+        if not isinstance(other, (int, float)):
+            raise NotImplementedError
+        if other == 0:
+            raise ZeroDivisionError
+        return Point(self.x / other, self.y / other)
+
+    def toVec2(self):
+        return Vec2(self.x, self.y)
+
+    def toComplex(self):
+        return Complex(self.x, self.y)
+
+    def toPolar(self):
+        return Polar(self.toVec2().magnitude(), self.toVec2().direction())
+
+    def toEulerF(self):
+        return EulerF(self.toVec2().magnitude(), self.toVec2().direction())
+
+    def __Str__(self):
+        return f"({self.x}, {self.y})"
+
+class Line:
+    def __init__(self, Slope: float = None, ordinate: float = None, A: float = None, B: float = None, C: float = None, pass_point: Point = None):
+        if Slope is not None and ordinate is not None:
+            self.m = Slope
+            self.y_intercept = ordinate
+            self.form = "slope-ordinate"
+        if A is not None and B is not None and C is not None:
+            self.A = A
+            self.B = B
+            self.C = C
+            self.form = "general_eq"
+        if Slope is not None and pass_point is not None:
+            self.m = Slope
+            self.pass_point = pass_point
+            self.form = "point-slope"
+
+    def Slope(self):
+        if self.form == "slope-ordinate":
+            return self.m
+        elif self.form == "general_eq":
+            if self.B == 0:
+                raise ZeroDivisionError
+            return -(self.A / self.B)
+        elif self.form == "point-slope":
+            return self.m
+
+    def Ordinate(self):
+        if self.form == "slope-ordinate":
+            return self.y_intercept
+        elif self.form == "general_eq":
+            if self.B == 0:
+                raise ZeroDivisionError
+            return -(self.C / self.B)
+        elif self.form == "point-slope":
+            return self.pass_point.y
+
+    def __str__(self):
+        if self.form == "slope-ordinate":
+            return f"y = {self.m}x + {self.y_intercept}"
+        elif self.form == "general_eq":
+            return f"{self.A}x + {self.B}y + {self.C} = 0"
+        elif self.form == "point-slope":
+            return f"y - {self.pass_point.y} = {self.m}(x - {self.pass_point.y})"

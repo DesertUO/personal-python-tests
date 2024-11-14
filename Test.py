@@ -1,1 +1,1 @@
-from libreria_asi_dicen import *
+from math_lib import *

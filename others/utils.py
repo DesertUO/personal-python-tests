@@ -40,11 +40,7 @@ def processableStr(Str: str, toRemove: tuple = (" ", ".", ",", "'", '"')):
         Str = TStr
     # Make the final standarized text
     Str = Str.split()
-    seen = []
-    for i in Str:
-        if i not in seen:
-            seen.append(i)
-    return seen
+    return Str
 
 if __name__ == "__main__":
     TestStr = "This is a test  for long text. This will be an example of sanatized  string or as I want to called it a text in a 'STANDARIZIED' form that you can use for any processing you want to make to the text or string."

@@ -1,0 +1,1 @@
+ChatGPT's idea to use tkinter for the interface. I did not know how to use implement a interface at all, I still don't but xD.

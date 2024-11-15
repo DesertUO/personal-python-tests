@@ -1,4 +1,4 @@
-def sanatizeInputInt(msg, vmin = -9999999999999, vmax = 9999999999999):
+def sanatizeInputInt(msg, vmin = -9999999999999, vmax = 9999999999999) -> int:
     while True:
         try:
             Num = int(input(msg))
@@ -9,7 +9,7 @@ def sanatizeInputInt(msg, vmin = -9999999999999, vmax = 9999999999999):
         except ValueError:
             print("ERROR. Input must be an integer.")
 
-def sanatizeInputFloat(msg, vmin = -9999999999999, vmax = 9999999999999):
+def sanatizeInputFloat(msg, vmin = -9999999999999, vmax = 9999999999999) -> float:
     while True:
         try:
             Num = float(input(msg))
@@ -20,7 +20,7 @@ def sanatizeInputFloat(msg, vmin = -9999999999999, vmax = 9999999999999):
         except ValueError:
             print("ERROR. Input must be a float.")
 
-def makeLine(NStr: int | str = 10, symbol: str = "*"):
+def makeLine(NStr: int | str = 10, symbol: str = "*") -> str:
     if isinstance(NStr, int):
         print(symbol * NStr)
         return f"{symbol * NStr}"
@@ -28,7 +28,7 @@ def makeLine(NStr: int | str = 10, symbol: str = "*"):
         print(symbol * len(NStr))
         return f"{symbol * len(NStr)}"
 
-def processableStr(Str: str, toRemove: tuple = (" ", ".", ",", "'", '"')):
+def processableStr(Str: str, toRemove: tuple = (" ", ".", ",", "'", '"')) -> list:
     Str = Str.upper()
     # Delete all characters in toRemove
     for remove in toRemove:

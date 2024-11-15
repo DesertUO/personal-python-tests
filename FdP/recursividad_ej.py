@@ -1,4 +1,4 @@
-from libreria_ES import LeerNroEntero
+from libreria_ES import leerNroEntero
 
 # Problema.- Escribir una aplicación para determinar los movimientos que se deben efectuar
 # en el problema de las Torres de Hanoi.
@@ -13,6 +13,6 @@ def Hanoi(N = 6, Inicio = 1, Final = 3):
         Hanoi(1, Inicio, Final)
         Hanoi(N - 1, Aux, Final)
 # Leer los datos (número de discos)
-nDiscos = LeerNroEntero("Ingrese el número de discos: ", 1)
+nDiscos = leerNroEntero("Ingrese el número de discos: ", 1)
 # Resolver el problema para N discos
 Hanoi(nDiscos)

@@ -406,6 +406,29 @@ class Line:
         elif self.form == "point-slope":
             return self.pass_point.y
 
+    def toGeneralEq(self):
+        if self.form == "slope-ordinate":
+            A = -self.m
+            B = 1
+            C = -self.y_intercept
+            return Line(None, None, A, B, C)
+        elif self.form == "general_eq":
+            return self
+        elif self.form == "point-slope":
+            A = -self.m
+            B = 1
+            C = self.m * self.pass_point.x - self.pass_point.y
+            return Line(None, None, A, B, C)
+
+    def distanceToPoint(self, point_1: Point):
+        Line_0 = self.toGeneralEq()
+        _A = Line_0.A
+        _B = Line_0.B
+        _C = Line_0.C
+        _x0 = point_1.x
+        _y0 = point_1.y
+        return float(abs(_A * _x0 + _B * _y0 + _C) / ((_A ** 2 + _B ** 2) ** 0.5))
+
     def __str__(self):
         if self.form == "slope-ordinate":
             return f"y = {self.m}x + {self.y_intercept}"

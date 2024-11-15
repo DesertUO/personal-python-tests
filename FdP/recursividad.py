@@ -1,4 +1,4 @@
-from libreria_ES import LeerNroEntero
+from libreria_ES import leerNroEntero
 
 # Módulos
 # Módulo para calcular el factorial de N: N!
@@ -76,8 +76,8 @@ def Hanoi(N = 6, Inicio = 1, Final = 3):
 def Test():
     # Probar las operaciones
     # Leer los números para realizar las operaciones
-    Numero_1 = LeerNroEntero("Ingrese un número entero no negativo: ", 0)
-    Numero_2 = LeerNroEntero("Ingrese otro número entero no negativo: ", 0)
+    Numero_1 = leerNroEntero("Ingrese un número entero no negativo: ", 0)
+    Numero_2 = leerNroEntero("Ingrese otro número entero no negativo: ", 0)
     # Realizar las operaciones
     print(f"El factorial de {Numero_1} es {factorial(Numero_1)}")
     print(f"El número de dígitos de {Numero_1} es {digitos(Numero_1)}")
@@ -85,22 +85,22 @@ def Test():
     print(f"El valor de la expresión {Numero_1}^{Numero_2} es {pot(Numero_1, Numero_2)}")
 
     # Probar el módulo de MCD
-    Numero_1 = LeerNroEntero("Ingrese un número entero no negativo: ", 0)
-    Numero_2 = LeerNroEntero("Ingrese otro número entero no negativo: ", 0)
+    Numero_1 = leerNroEntero("Ingrese un número entero no negativo: ", 0)
+    Numero_2 = leerNroEntero("Ingrese otro número entero no negativo: ", 0)
     print(f"EL MCD de {Numero_1} y {Numero_2} es {MCD(Numero_1, Numero_2)}")
 
     # Probar la conversión de decimal a binario
-    NumeroDec = LeerNroEntero("Ingrese un número decimal: ", 0)
+    NumeroDec = leerNroEntero("Ingrese un número decimal: ", 0)
     print(f"El número decimal {NumeroDec} es {DecABin(NumeroDec)} en base 2")
 
     # Probar el n-ésimo térmnio de la serie de Fibonacci
-    nTermino = LeerNroEntero("Ingrese el término desesado: ", 0)
+    nTermino = leerNroEntero("Ingrese el término desesado: ", 0)
     print(f"EL {nTermino}-ésimo término de la serie de fibonacci es {fib(nTermino)}")
 
     # Probar el problema de las torres de Hanoi
     print("Problema de las Torres de Hanoi")
     # Leer los datos (número de discos)
-    nDiscos = LeerNroEntero("Ingrese el número de discos: ", 1)
+    nDiscos = leerNroEntero("Ingrese el número de discos: ", 1)
     # Resolver el problema para N discos
     Hanoi(nDiscos)
 

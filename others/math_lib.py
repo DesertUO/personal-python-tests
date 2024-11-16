@@ -4,23 +4,23 @@ from utils import sanatizeInputFloat
 
 # Just went full English from this part xD
 class Vec2:
-    def __init__(self, coord_x: float, coord_y: float):
-        self.x = coord_x
-        self.y = coord_y
+    def __init__(self, coord_x: int | float, coord_y: int | float):
+        self.x = float(coord_x)
+        self.y = float(coord_y)
 
-    def __add__(self, other):
+    def __add__(self, other: "Vec2"):
         if isinstance(other, Vec2):
             return Vec2(self.x + other.x, self.y + other.y)
         else:
             raise NotImplementedError
 
-    def __sub__(self, other):
+    def __sub__(self, other: "Vec2"):
         if isinstance(other, Vec2):
             return Vec2(self.x - other.x, self.y - other.y)
         else:
             raise NotImplementedError
 
-    def __mul__(self, other):
+    def __mul__(self, other: "Vec2" | int | float):
         # Dot product
         if isinstance(other, Vec2):
             return (self.x * other.x + self.y * other.y)
@@ -30,7 +30,7 @@ class Vec2:
         else:
             raise NotImplementedError
 
-    def __truediv__(self, other):
+    def __truediv__(self, other: int | float):
         if isinstance(other, Vec2):
             raise NotImplementedError("Cannot divide a Vec2 object by another Vec2 object")
         elif isinstance(other, (int, float)):
@@ -51,7 +51,7 @@ class Vec2:
             raise NotImplementedError
         return (self / self.magnitude)
 
-    def ToVec3(self, coord_z = 0):
+    def ToVec3(self, coord_z: int | float = 0):
         return Vec3(self.x, self.y, coord_z)
 
     def ToComplex(self):
@@ -64,24 +64,24 @@ class Vec2:
         return f"({self.x}, {self.y})"
 
 class Vec3:
-    def __init__(self, coord_x: float, coord_y: float, coord_z: float):
-        self.x = coord_x
-        self.y = coord_y
-        self.z = coord_z
+    def __init__(self, coord_x: int | float, coord_y: int | float, coord_z: int | float):
+        self.x = float(coord_x)
+        self.y = float(coord_y)
+        self.z = float(coord_z)
 
-    def __add__(self, other):
+    def __add__(self, other: "Vec3"):
         if isinstance(other, Vec3):
             return Vec3(self.x + other.x, self.y + other.y, self.z + other.z)
         else:
             raise NotImplementedError
 
-    def __sub__(self, other):
+    def __sub__(self, other: "Vec3"):
         if isinstance(other, Vec3):
             return Vec3(self.x - other.x, self.y - other.y, self.z - other.z)
         else:
             raise NotImplementedError
 
-    def __mul__(self, other):
+    def __mul__(self, other: "Vec3" | int | float):
         # Dot product
         if isinstance(other, Vec3):
             return (self.x * other.x + self.y * other.y + self.z * other.z)
@@ -91,7 +91,7 @@ class Vec3:
         else:
             raise NotImplementedError
 
-    def __truediv__(self, other):
+    def __truediv__(self, other: int | float):
         if isinstance(other, Vec3):
             raise NotImplementedError("Cannot divide a Vec3 object by another Vec3 object")
         elif isinstance(other, (int, float)):
@@ -131,34 +131,34 @@ def Cross(V1: Vec2 | Vec3, V2: Vec2 | Vec3):
         raise NotImplementedError
 
 class Imaginary:
-    def __init__(self, Value: float):
-        self.val = Value
+    def __init__(self, Value: int | float):
+        self.val = float(Value)
 
-    def __add__(self, other):
+    def __add__(self, other: "Imaginary" | int | float):
         if isinstance(other, Imaginary):
             return Imaginary(self.val + other.val)
         elif isinstance(other, (int, float)):
-            return Complex(other, self.val)
+            return Complex(float(other), self.val)
         else:
             raise NotImplementedError
 
-    def __sub__(self, other):
+    def __sub__(self, other: "Imaginary" | int | float):
         if isinstance(other, Imaginary):
             return Imaginary(self.val - other.val)
         elif isinstance(other, (int, float)):
-            return Complex(other, -self.val)
+            return Complex(float(other), -self.val)
         else:
             raise NotImplementedError
 
-    def __mul__(self, other):
+    def __mul__(self, other: "Imaginary" | int | float):
         if isinstance(other, Imaginary):
             return -self.val * other.val
         elif isinstance(other, (int, float)):
-            return Imaginary(self.val * other)
+            return Imaginary(self.val * float(other))
         else:
             raise NotImplementedError
 
-    def __truediv__(self, other):
+    def __truediv__(self, other: "Imaginary" | int | float):
         if isinstance(other, Imaginary):
             if other.val == 0:
                 raise ZeroDivisionError("Cannot divide by zero")
@@ -166,7 +166,7 @@ class Imaginary:
         elif isinstance(other, (int, float)):
             if other == 0:
                 raise ZeroDivisionError("Cannot divide by zero")
-            return Imaginary(self.val / other)
+            return Imaginary(self.val / float(other))
         else:
             raise NotImplementedError
 
@@ -174,11 +174,11 @@ class Imaginary:
         return f"{self.val}i"
 
 class Complex:
-    def __init__(self, real: float, imaginary: float):
-        self.re = real
-        self.im = imaginary
+    def __init__(self, real: int | float, imaginary: int | float):
+        self.re = float(real)
+        self.im = float(imaginary)
     
-    def __add__(self, other):
+    def __add__(self, other: "Complex" | int | float | Imaginary):
         if isinstance(other, Complex):
             return Complex(self.re + other.re, self.im + other.im)
         elif isinstance(other, (int, float)):
@@ -188,23 +188,23 @@ class Complex:
         else:
             raise NotImplementedError
 
-    def __sub__(self, other):
+    def __sub__(self, other: "Complex" | int | float | Imaginary):
         if isinstance(other, Complex):
             return Complex(self.re - other.re, self.im - other.im)
         elif isinstance(other, (int, float)):
-            return Complex(self.re - other, self.im)
+            return Complex(self.re - float(other), self.im)
         elif isinstance(other, Imaginary):
             return Complex(self.re, self.im - other.val)
         else:
             raise NotImplementedError
     
-    def __truediv__(self, other):
+    def __truediv__(self, other: "Complex" | int | float):
         if isinstance(other, Complex):
             pass
         elif isinstance(other, (int, float)):
             if other == 0:
                 raise ZeroDivisionError("Cannot divide by zero")
-            return Complex(self.re / other, self.im / other)
+            return Complex(self.re / float(other), self.im / float(other))
         else:
             raise NotImplementedError
     
@@ -215,7 +215,7 @@ class Complex:
         return atan2(self.im, self.re)
     
     def arg(self, num: int = 0):
-        return (self.Arg() + (num * tau))
+        return (self.Arg() + (int(num) * tau))
     
     def abs(self):
         return float((self.re ** 2 + self.im ** 2) ** 0.5)
@@ -245,13 +245,13 @@ class Complex:
             return f"{self.re} - {abs(self.im)}i"
 
 class Polar:
-    def __init__(self, radius: float, direction):
-        self.r = radius
-        self.theta = direction
+    def __init__(self, radius: int | float, direction: int | float):
+        self.r = float(radius)
+        self.theta = float(direction)
     
-    def __mul__(self, other):
+    def __mul__(self, other: int | float):
         if isinstance(other, (int, float)):
-            return Polar(self.r * other, self.theta)
+            return Polar(self.r * float(other), self.theta)
         else:
             raise NotImplementedError
     
@@ -265,32 +265,32 @@ class Polar:
         return f"({self.r}, {self.theta})"
 
 class EulerNF:
-    def __init__(self, direction: float):
-        self.theta = direction
+    def __init__(self, direction: int | float):
+        self.theta = float(direction)
 
     def ToNormalizedVec2(self):
         return Vec2(cos(self.theta), sin(self.theta))
 
-    def ToVec2(self, magnitude: float = 1):
-        return (magnitude * self.ToNormalizedVec2())
+    def ToVec2(self, magnitude: int | float = 1):
+        return (float(magnitude) * self.ToNormalizedVec2())
 
     def ToNormalizedComplex(self):
         return Complex(cos(self.theta), sin(self.theta))
     
-    def ToComplex(self, absolute_value: float = 1):
-        return (absolute_value * self.ToNormalizedComplex())
+    def ToComplex(self, absolute_value: int | float = 1):
+        return (abs(float(absolute_value)) * self.ToNormalizedComplex())
     
-    def ToPolar(self, radius: float = 1):
-        return Polar(radius, self.theta)
+    def ToPolar(self, radius: int | float = 1):
+        return Polar(float(radius), self.theta)
 
-    def ToEulerF(self, abs: float = 1):
-        return EulerF(abs, self.theta)
+    def ToEulerF(self, Abs: int | float = 1):
+        return EulerF(abs(float(Abs)), self.theta)
 
-    def __mul__(self, other):
+    def __mul__(self, other: "EulerNF" | int | float):
         if isinstance(other, EulerNF):
             return EulerNF(self.theta + other.theta)
         elif isinstance(other, (int, float)):
-            return (other * self.ToNormalizedComplex())
+            return (float(other) * self.ToNormalizedComplex())
         else:
             raise NotImplementedError
 
@@ -298,27 +298,27 @@ class EulerNF:
         return f"e^i{self.theta}"
 
 class EulerF:
-    def __init__(self, abs: float, theta: float):
-        self.abs = abs
-        self.theta = theta
+    def __init__(self, Abs: int | float, theta: int | float):
+        self.abs = float(Abs)
+        self.theta = float(theta)
     
-    def __mul__(self, other):
+    def __mul__(self, other: "EulerF" | EulerNF | int | float):
         if isinstance(other, EulerF):
             return EulerF(self.abs * other.abs, self.theta + other.theta)
         elif isinstance(other, EulerNF):
             return EulerF(self.abs, self.theta + other.theta)
         elif isinstance(other, (int, float)):
-            return EulerF(self.abs * other, self.theta)
+            return EulerF(self.abs * float(other), self.theta)
         else:
             raise NotImplementedError
 
-    def __truediv__(self, other):
+    def __truediv__(self, other: "EulerF" | EulerNF | int | float):
         if isinstance(other, EulerF):
             return EulerF(self.abs / other.abs, self.theta - other.theta)
         elif isinstance(other, EulerNF):
             return EulerF(self.abs, self.theta - other.theta)
         elif isinstance(other, (int, float)):
-            return EulerF(self.abs / other, self.theta)
+            return EulerF(self.abs / float(other), self.theta)
         else:
             raise NotImplementedError
 
@@ -331,31 +331,39 @@ class EulerF:
             return f"{self.abs}*e^{self.theta}i"
 
 class Point:
-    def __init__(self, coord_x, coord_y):
-        self.x = coord_x
-        self.y = coord_y
+    def __init__(self, coord_x: int | float, coord_y: int | float):
+        self.x = float(coord_x)
+        self.y = float(coord_y)
 
-    def __add__(self, other):
+    def __add__(self, other: "Point"):
         if not isinstance(other, Point):
             raise NotImplementedError
         return Point(self.x + other.x, self.y + other.y)
 
-    def __sub__(self, other):
+    def __sub__(self, other: "Point"):
         if not isinstance(other, Point):
             raise NotImplementedError
         return Point(self.x - other.x, self.y - other.y)
 
-    def __mul__(self, other):
+    def __mul__(self, other: int | float):
         if not isinstance(other, (int, float)):
             raise NotImplementedError
-        return Point(self.x * other, self.y * other)
+        return Point(self.x * float(other), self.y * float(other))
 
-    def __truediv__(self, other):
+    def __rmul__(self, other: int | float):
+        return self * float(other)
+
+    def __truediv__(self, other: int | float):
         if not isinstance(other, (int, float)):
             raise NotImplementedError
         if other == 0:
             raise ZeroDivisionError
-        return Point(self.x / other, self.y / other)
+        return Point(self.x / float(other), self.y / float(other))
+
+    def distanceToPoint(self, other: "Point"):
+        if not isinstance(other, Point):
+            raise TypeError
+        return float(((other.x - self.x) ** 2 + (other.y - self.y) ** 2) ** 0.5)
 
     def toVec2(self):
         return Vec2(self.x, self.y)
@@ -369,22 +377,22 @@ class Point:
     def toEulerF(self):
         return EulerF(self.toVec2().magnitude(), self.toVec2().direction())
 
-    def __Str__(self):
+    def __str__(self):
         return f"({self.x}, {self.y})"
 
 class Line:
-    def __init__(self, Slope: float = None, ordinate: float = None, A: float = None, B: float = None, C: float = None, pass_point: Point = None):
+    def __init__(self, Slope: int | float = None, ordinate: int |float = None, A: int | float = None, B: int | float = None, C: int | float = None, pass_point: Point = None):
         if Slope is not None and ordinate is not None:
-            self.m = Slope
-            self.y_intercept = ordinate
+            self.m = float(Slope)
+            self.y_intercept = float(ordinate)
             self.form = "slope-ordinate"
         if A is not None and B is not None and C is not None:
-            self.A = A
-            self.B = B
-            self.C = C
+            self.A = float(A)
+            self.B = float(B)
+            self.C = float(C)
             self.form = "general_eq"
         if Slope is not None and pass_point is not None:
-            self.m = Slope
+            self.m = float(Slope)
             self.pass_point = pass_point
             self.form = "point-slope"
 
@@ -452,8 +460,27 @@ def readVec3Console(msg: str = "Next you will enter the coordinates of the Vec3"
     _z = sanatizeInputFloat(msg_z)
     return Vec2(_x, _y, _z)
 
-def readPolarConsole(msg: str = "Next you will enter the coordinates of the Polar", msg_r: str = "Enter the value on the X axis: ", msg_theta: str = "Enter the value on the Y axis: "):
+def readPolarConsole(msg: str = "Next you will enter the coordinates of the Polar", msg_r: str = "Enter the value of the radius: ", msg_theta: str = "Enter the value of the angle: "):
     print(msg)
     _r = sanatizeInputFloat(msg_r)
     _theta = sanatizeInputFloat(msg_theta)
     return Polar(_r, _theta)
+
+class Segment:
+    def __init__(self, point0: Point, point1: Point):
+        self.p0 = point0
+        self.p1 = point1
+
+    def val(self):
+        return self.p0.distanceToPoint(self.p1)
+
+    def midPoint(self):
+        return Point((self.p0.x + self.p1.x) / 2, (self.p0.y + self.p1.y) / 2)
+
+    def slope(self):
+        if self.p1.x == self.p0.x:
+            raise ValueError
+        return((self.p1.y - self.p0.y) / (self.p1.x - self.p0.x))
+
+    def __str__(self):
+        return f"AB = {self.val()}"

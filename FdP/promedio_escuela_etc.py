@@ -1,0 +1,28 @@
+# En una escuela de alta especialización en informática se evalúa a postulantes. 
+# A c/u se les toma 4 exámenes, cada exámen tiene una puntuación de 0 a 100 ptos,
+# para calcular el promedio se desconta la nota más alta y la nota más baja
+# considerando sólo las 2 notas intermedias. Escribir un algorítmo modular
+# que calcule el promedio de un postulante.
+
+from libreria_test import *
+
+# Leer puntos
+def leerPuntos():
+    return leerNumeroEntero("Ingrese la nota: ", 0, 100)
+
+# Módulo principal
+def main():
+    print("Alumno: ")
+    Nota1 = leerPuntos()
+    Nota2 = leerPuntos()
+    Nota3 = leerPuntos()
+    Nota4 = leerPuntos()
+    
+    NotaMayor = mayorNro(mayorNro(Nota1, Nota2), mayorNro(Nota3, Nota4))
+    NotaMenor = menorNro(menorNro(Nota1, Nota2), menorNro(Nota3, Nota4))
+    
+    promedio = (Nota1 + Nota2 + Nota3 + Nota4 - NotaMayor - NotaMenor) / 2
+    
+    print("El promedio del alumno es: " + str(promedio))
+
+main()

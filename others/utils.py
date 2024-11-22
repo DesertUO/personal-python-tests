@@ -30,7 +30,7 @@ def makeLine(NStr: int | str = 10, symbol: str = "*") -> str:
 
 def processableStr(Str: str, toRemove: tuple = (" ", ".", ",", "'", '"')) -> list:
     Str = Str.upper()
-    # Delete all characters in toRemove
+    # Delete all characters in Str that are in toRemove
     for remove in toRemove:
         remove = str(remove)
         Str = Str.split(remove)
@@ -42,6 +42,18 @@ def processableStr(Str: str, toRemove: tuple = (" ", ".", ",", "'", '"')) -> lis
     Str = Str.split()
     return Str
 
+def processListToStr(processableStrL: list):
+    if not isinstance(processableStrL, list):
+        raise TypeError
+    # Make a full string line made of words in the processableStrL list
+    fullStr = ""
+    for word in processableStrL:
+        if processableStrL.index(word) == 1:
+            word = str(word).capitalize()
+        fullStr = fullStr + str(word) + (" " if (processableStrL.index(word) == -1) else "")
+    # Return that striing
+    return fullStr
+ 
 if __name__ == "__main__":
     TestStr = "This is a test  for long text. This will be an example of sanatized  string or as I want to called it a text in a 'STANDARIZIED' form that you can use for any processing you want to make to the text or string."
     print(processableStr(TestStr))

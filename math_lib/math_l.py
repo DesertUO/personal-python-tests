@@ -1,6 +1,5 @@
+from __future__ import annotations
 from math import cos, sin, atan2, tau
-
-from utils import sanatizeInputFloat
 
 # Just went full English from this part xD
 class Vec2:
@@ -20,7 +19,7 @@ class Vec2:
         else:
             raise NotImplementedError
 
-    def __mul__(self, other: "Vec2" | int | float):
+    def __mul__(self, other: Vec2 | int | float):
         # Dot product
         if isinstance(other, Vec2):
             return (self.x * other.x + self.y * other.y)
@@ -49,7 +48,7 @@ class Vec2:
     def normalize(self):
         if (self.magnitude() == 0):
             raise NotImplementedError
-        return (self / self.magnitude)
+        return (self / self.magnitude())
 
     def ToVec3(self, coord_z: int | float = 0):
         return Vec3(self.x, self.y, coord_z)
@@ -446,25 +445,6 @@ class Line:
             return f"{self.A}x + {self.B}y + {self.C} = 0"
         elif self.form == "point-slope":
             return f"y - {self.pass_point.y} = {self.m}(x - {self.pass_point.y})"
-
-def readVec2Console(msg: str = "Next you will enter the coordinates of the Vec2", msg_x: str = "Enter the value on the X axis: ", msg_y: str = "Enter the value on the Y axis: "):
-    print(msg)
-    _x = sanatizeInputFloat(msg_x)
-    _y = sanatizeInputFloat(msg_y)
-    return Vec2(_x, _y)
-
-def readVec3Console(msg: str = "Next you will enter the coordinates of the Vec3", msg_x: str = "Enter the value on the X axis: ", msg_y: str = "Enter the value on the Y axis: ", msg_z: str = "Enter the value on the Z axis: "):
-    print(msg)
-    _x = sanatizeInputFloat(msg_x)
-    _y = sanatizeInputFloat(msg_y)
-    _z = sanatizeInputFloat(msg_z)
-    return Vec2(_x, _y, _z)
-
-def readPolarConsole(msg: str = "Next you will enter the coordinates of the Polar", msg_r: str = "Enter the value of the radius: ", msg_theta: str = "Enter the value of the angle: "):
-    print(msg)
-    _r = sanatizeInputFloat(msg_r)
-    _theta = sanatizeInputFloat(msg_theta)
-    return Polar(_r, _theta)
 
 class Segment:
     def __init__(self, point0: Point, point1: Point):

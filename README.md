@@ -16,7 +16,7 @@ The primary purpose of this repository is to:
 ## Structure
 For the moment there is none. I just threw them in the root directory.
 - WIP: "u" exersices|projects|libraries are under the "FdP" directory.
-- - Scripts|libraries|etc that I still cannot organize will be under the "others" directory.
+- - Scripts|libraries|etc that I still cannot organize will be on the root directory (mostly because I cannot figure out how to make the "math_lib" and "utils" packages/directories accessable on the "others" directory).
 - Currently the "Test.py" file has no use.
 
 ## How to Use

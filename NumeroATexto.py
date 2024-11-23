@@ -1,7 +1,7 @@
 # En español (In Spanish)
 
 ## Errores asdfbghnymgiuqwertyuiop
-
+import utils
 # Números de 1 cifra
 def DigitoATexto(N: int):
     if 0 <= N <= 9:
@@ -120,5 +120,5 @@ def ConvertirNroATexto(N: int):
     return MillarATexto(N)
 
 # Test del método para convertir números naturales a su forma de palabras
-Num = int(input("Ingrese un número: "))
-print(ConvertirNroATexto(Num))
+Num = utils.sanatizeInputInt("Ingrese un número: ", 0, 999999)
+print(f"El número es {ConvertirNroATexto(Num)}")

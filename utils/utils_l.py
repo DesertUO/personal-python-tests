@@ -1,4 +1,4 @@
-def sanatizeInputInt(msg, vmin = -9999999999999, vmax = 9999999999999) -> int:
+def sanatizeInputInt(msg = "", vmin = -9999999999999, vmax = 9999999999999) -> int:
     while True:
         try:
             Num = int(input(msg))
@@ -9,7 +9,7 @@ def sanatizeInputInt(msg, vmin = -9999999999999, vmax = 9999999999999) -> int:
         except ValueError:
             print("ERROR. Input must be an integer.")
 
-def sanatizeInputFloat(msg, vmin = -9999999999999, vmax = 9999999999999) -> float:
+def sanatizeInputFloat(msg = "", vmin = -9999999999999, vmax = 9999999999999) -> float:
     while True:
         try:
             Num = float(input(msg))

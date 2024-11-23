@@ -1,4 +1,4 @@
-from libreria_test import *
+from problemas.libreria_test import *
 
 def main():
     N1 = leerNumeroReal("Ingrese el Nro1: ", 0, 9999999999999999999)

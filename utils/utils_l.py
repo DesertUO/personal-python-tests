@@ -1,4 +1,4 @@
-def sanatizeInputInt(msg = "", vmin = -9999999999999, vmax = 9999999999999) -> int:
+def sanatizeInputInt(msg: str = "", vmin: int = -9999999999999, vmax: int = 9999999999999) -> int:
     while True:
         try:
             Num = int(input(msg))
@@ -9,7 +9,7 @@ def sanatizeInputInt(msg = "", vmin = -9999999999999, vmax = 9999999999999) -> i
         except ValueError:
             print("ERROR. Input must be an integer.")
 
-def sanatizeInputFloat(msg = "", vmin = -9999999999999, vmax = 9999999999999) -> float:
+def sanatizeInputFloat(msg: str = "", vmin: float = -9999999999999, vmax: float = 9999999999999) -> float:
     while True:
         try:
             Num = float(input(msg))
@@ -28,34 +28,33 @@ def makeLine(NStr: int | str = 10, symbol: str = "*") -> str:
         print(symbol * len(NStr))
         return f"{symbol * len(NStr)}"
 
-def processableStr(Str: str, toRemove: tuple = (" ", ".", ",", "'", '"')) -> list:
-    Str = Str.upper()
-    # Delete all characters in Str that are in toRemove
-    for remove in toRemove:
-        remove = str(remove)
-        Str = Str.split(remove)
-        TStr = ""
-        for each in Str:
-            TStr = TStr + " " + each
-        Str = TStr
-    # Make the final standarized text
-    Str = Str.split()
-    return Str
+def processablestr(stra: str, toremove: tuple[str, ...] = (" ", ".", ",", "'", '"')) -> list:
+    stra = stra.upper()
+    # delete all characters in str that are in toremove
+    for remove in toremove:
+        strab = stra.replace(remove, " ")
+    # make the final standarized text
+    strab = stra.split()
+    return strab
 
-def processListToStr(processableStrL: list):
-    if not isinstance(processableStrL, list):
-        raise TypeError
-    # Make a full string line made of words in the processableStrL list
-    fullStr = ""
-    for word in processableStrL:
-        if processableStrL.index(word) == 1:
-            word = str(word).capitalize()
-        fullStr = fullStr + str(word) + (" " if (processableStrL.index(word) == -1) else "")
-    # Return that striing
-    return fullStr
- 
-if __name__ == "__main__":
-    TestStr = "This is a test  for long text. This will be an example of sanatized  string or as I want to called it a text in a 'STANDARIZIED' form that you can use for any processing you want to make to the text or string."
-    print(processableStr(TestStr))
-    for each in processableStr(TestStr):
+def processlisttostr(processablestrl: list[str]):
+    if not isinstance(processablestrl, list):
+        raise typeerror
+    # make a full string line made of words in the processablestrl list
+    fullstr = " ".join(
+        word.capitalize() if i == 0 else word.lower() for i, word in enumerate(processablestrl)
+    )
+    # return that striing
+    return fullstr
+
+def main(teststr) -> None:
+    processableteststr = processablestr(teststr)
+    print(processableteststr)
+    for each in processableteststr:
         print(each)
+    print(processlisttostr(processableteststr))
+    
+
+if __name__ == "__main__":
+    teststr = "this is a test  for long text. this will be an example of sanatized  string or as i want to called it a text in a 'standardized' form that you can use for any processing you want to make to the text or string."
+    main(teststr)

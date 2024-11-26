@@ -3,7 +3,7 @@
 ## Errores asdfbghnymgiuqwertyuiop
 import utils
 # Números de 1 cifra
-def DigitoATexto(N: int):
+def DigitoATexto(N: int) -> str:
     if 0 <= N <= 9:
         if N == 0:
             Text = ""
@@ -31,7 +31,7 @@ def DigitoATexto(N: int):
         raise Exception("El número no es un dígito: 0 <= N <= 9")
 
 # Números de 2 cifras
-def DecenaATexto(N: int):
+def DecenaATexto(N: int) -> str:
     U, D = N % 10, N // 10
     if D == 0:
         Text = "cero" if (U == 0) else DigitoATexto(N)
@@ -78,7 +78,7 @@ def DecenaATexto(N: int):
     return Text
 
 # Números de 3 cifras
-def CentenaATexto(N: int):
+def CentenaATexto(N: int) -> str:
     U, D, C = N % 10, (N // 10) % 10, N // 100
 
     if C == 0:
@@ -108,7 +108,7 @@ def CentenaATexto(N: int):
     return Text
 
 # Números de 4 cifras a 6 cifras
-def MillarATexto(N: int):
+def MillarATexto(N: int) -> str:
     U, D, C, M = N % 10, (N // 10) % 100, (N // 100) % 10, N // 1000
 
     Text = "" if (M == 0) else ("mil" if (M == 1) else (CentenaATexto(M) + "mil"))
@@ -116,7 +116,7 @@ def MillarATexto(N: int):
     return Text
 
 # Hasta 999'999
-def ConvertirNroATexto(N: int):
+def ConvertirNroATexto(N: int) -> str:
     return MillarATexto(N)
 
 # Test del método para convertir números naturales a su forma de palabras

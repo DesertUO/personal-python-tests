@@ -120,5 +120,5 @@ def ConvertirNroATexto(N: int) -> str:
     return MillarATexto(N)
 
 # Test del método para convertir números naturales a su forma de palabras
-Num = utils.sanatizeInputInt("Ingrese un número: ", 0, 999999)
+Num = utils.sanitizeInputInt("Ingrese un número: ", 0, 999999)
 print(f"El número es {ConvertirNroATexto(Num)}")

@@ -63,9 +63,41 @@ class Matrix:
                 transposedMatrix.set(j, i, self.get(i, j))
         return transposedMatrix
 
+    def _getMinor(self, row, col):
+        minorMatrix = Matrix(self.rows - 1, self.cols - 1)
+        minorRow = 0
+        for i in range(self.rows):
+            if i == row:
+                continue
+            minorCol = 0
+            for j in range(self.cols):
+                if j == col:
+                    continue
+                minorMatrix.set(minorRow, minorCol, self.get(i, j))
+                minorCol += 1
+            minorRow += 1
+        return minorMatrix
+
+    def determinant(self):
+        if not (self.rows == self.cols):
+            raise ValueError("Determinant is only defined for square matrices")
+
+        if self.rows == 1:
+            return self.get(0, 0)
+
+        if self.rows == 2:
+            return (self.get(0, 0)*self.get(1, 1)) - (self.get(0, 1)*self.get(1, 0))
+
+        determinantValue = 0
+        for col in range(self.cols):
+            cofactor = (-1) ** col * self.get(0, col) * self._getMinor(0, col).determinant()
+            determinantValue += cofactor
+
+        return determinantValue
+
     # __method__ methods
 
-    def __str__(self):
+    def __repr__(self):
         return "\n".join([" ".join(map(str, row)) for row in self.data])
 
     def __add__(self, other: "Matrix | int | float | str"):

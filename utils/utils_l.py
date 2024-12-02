@@ -1,5 +1,6 @@
+from enum import Enum
 from sys import maxsize
-
+import os
 
 _minIntValue: int = -maxsize
 _maxIntValue: int = maxsize
@@ -7,54 +8,99 @@ _minFloatValue: float = -float("inf")
 _maxFloatValue: float = float("inf")
 
 
-def sanitizeInputInt(msg: str = "", vmin: int = _minIntValue, vmax: int = _maxIntValue) -> int:
+def sanitizeInputInt(msg: str = "", vmin: int = _minIntValue, vmax: int = _maxIntValue, errorMsg: str = "ERROR. Input must be an integer", errorOutOfRange: str = "defaultT", exitKey: str = "q", useExitKey: bool = True) -> int:
+    if errorOutOfRange == "defaultT":
+        errorOutOfRange = f"Please enter a number between {vmin} and {vmax}."
+    while True:
+        userInput = input(msg)
+        if userInput == exitKey and useExitKey == True:
+            print("Exiting input...")
+            return 0
+        try:
+            Num = int(userInput)
+            if Num < vmin or Num > vmax:
+                print(errorOutOfRange)
+            else:
+                return Num
+        except ValueError:
+            print(errorMsg)
+
+def sanitizeInputFloat(msg: str = "", vmin: float = _minFloatValue, vmax: float = _maxFloatValue, errorMsg: str = "ERROR. Input must be a float.", exitKey: str = "q", useExitKey: bool = True) -> float:
+    userInput = input(msg)
+    if userInput == exitKey and useExitKey == True:
+        print("Exiting input...")
+        return 0
     while True:
         try:
-            Num = int(input(msg))
+            Num = float(userInput)
             if Num < vmin or Num > vmax:
                 print(f"Please enter a number between {vmin} and {vmax}.")
             else:
                 return Num
         except ValueError:
-            print("ERROR. Input must be an integer.")
+            print(errorMsg)
 
-def sanitizeInputFloat(msg: str = "", vmin: float = _minFloatValue, vmax: float = _maxFloatValue) -> float:
-    while True:
-        try:
-            Num = float(input(msg))
-            if Num < vmin or Num > vmax:
-                print(f"Please enter a number between {vmin} and {vmax}.")
-            else:
-                return Num
-        except ValueError:
-            print("ERROR. Input must be a float.")
+def makeLine(NStr: int | str = 10, symbol: str = "*", printLine: bool = True) -> str:
+    line = symbol * (NStr if isinstance(NStr, int) else len(NStr))
 
-def makeLine(NStr: int | str = 10, symbol: str = "*") -> str:
-    if isinstance(NStr, int):
-        print(symbol * NStr)
-        return f"{symbol * NStr}"
-    elif isinstance(NStr, str):
-        print(symbol * len(NStr))
-        return f"{symbol * len(NStr)}"
+    if printLine == True:
+        print(line)
+    return f"{line}"
 
-def processablestr(stra: str, toremove: tuple[str, ...] = (" ", ".", ",", "'", '"')) -> list:
-    stra = stra.upper()
+def processableStr(strN: str, toRemove: tuple[str, ...] = (" ", ".", ",", "'", '"'), ignoreCase: bool = True) -> list[str]:
+    if ignoreCase == True:
+        strN = strN.upper()
     # delete all characters in str that are in toremove
-    for remove in toremove:
-        strab = stra.replace(remove, " ")
+    for remove in toRemove:
+        strab = strN.replace(remove, " ")
     # make the final standarized text
-    strab = stra.split()
-    return strab
+    strNB = strN.split()
+    return strNB
 
-def processlisttostr(processablestrl: list[str]) -> str:
-    if not isinstance(processablestrl, list):
-        raise typeerror
+class CapMode(Enum):
+    CAP_ALL = 1
+    CAP_FIRST = 2
+    CAP_NONE = 3
+
+def processlistToStr(processableStrL: list[str], capMode: CapMode = CapMode.CAP_FIRST) -> str:
+    if not isinstance(processableStrL, list):
+        raise TypeError
     # make a full string line made of words in the processablestrl list
-    fullstr = " ".join(
-        word.capitalize() if i == 0 else word.lower() for i, word in enumerate(processablestrl)
-    )
+    match capMode:
+        case capMode.CAP_ALL:
+            fullStr = " ".join(word.capitalize() for word in processableStrL)
+        case capMode.CAP_FIRST:
+            fullStr = " ".join(word.capitalize() if i == 0 else word.lower() for i, word in enumerate(processableStrL))
+        case capMode.CAP_NONE:
+            fullStr = " ".join(word.lower() for word in processableStrL)
+
     # return that striing
-    return fullstr
+    return fullStr
+
+# New----------------------------->
+
+# Files and directories utils
+def readFile(filePath: str) -> str:
+    try:
+        with open(filePath, "r") as file:
+            return file.read()
+    except FileNotFoundError:
+        print(f"File not found on {filePath}.")
+        return ""
+
+def writeFile(filePath: str, content: str) -> None:
+    with open(filePath, "w") as file:
+        file.write(content)
+
+def fileExists(filePath: str) -> bool:
+    return os.path.exists(filePath)
+
+def makeDirectory(directoryPath) -> None:
+    os.makedirs(directoryPath, exist_ok=True)
+
+def getFileExt(filePath: str) -> str:
+    _, ext = os.path.splitext(filePath)
+    return ext
 
 # Trying to do a test for this module
 
@@ -86,12 +132,11 @@ def main(teststr) -> None:
     testsanitizeInt()
     testsanitizeFloat()
 
-    processableteststr = processablestr(teststr)
+    processableteststr = processableStr(teststr)
     print(processableteststr)
     for each in processableteststr:
         print(each)
-    print(processlisttostr(processableteststr))
-    
+    print(processlistToStr(processableteststr)) 
 
 if __name__ == "__main__":
     teststr = "this is a test  for long text. this will be an example of sanitized  string or as i want to called it a text in a 'standardized' form that you can use for any processing you want to make to the text or string."

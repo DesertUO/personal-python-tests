@@ -1,0 +1,246 @@
+Genera un formulario de python, GUI, que permita realizar los siguientes, en una misma ventana, con las entradas dinamicas de acuerdo a la opcion seleccionada, y que al principio se seleccione una por default y las entradas esten ahi.
+def aparicionDelCincoWhile():
+    nro = int(input("Ingrese un número positivo: "))
+    while nro <= 0:
+        print("El número debe de ser un número entero positivo")
+        nro = int(input("Ingrese un número positivo: "))
+
+    digitoAEncontrar = int(input("Ingrese el dígito que quiera contar: "))
+    while nro <= 0:
+        print("El digito a encontrar debe de ser un número entero positivo")
+        digitoAEncontrar = int(input("Ingrese el dígito que quiera contar: "))
+
+    nroTemp = nro
+    digitos = 0
+    while nroTemp > 0:
+        nroTemp = nroTemp // 10
+        digitos += 1
+
+    contador = 0
+    i = 0
+    while i <= digitos:
+        i += 1
+        digito = nro % 10
+        if digito == digitoAEncontrar:
+            contador += 1
+
+        nro = nro // 10
+
+    print(f"El número de veces que aparece el número {digitoAEncontrar} en {nro} es de {contador}")
+
+def aparicionDelCincoFor():
+    nro = int(input("Ingrese un número positivo: "))
+    while nro <= 0:
+        print("El número debe de ser un número entero positivo")
+        nro = int(input("Ingrese un número positivo: "))
+
+    digitoAEncontrar = int(input("Ingrese el dígito que quiera contar: "))
+    while nro <= 0:
+        print("El digito a encontrar debe de ser un número entero positivo")
+        digitoAEncontrar = int(input("Ingrese el dígito que quiera contar: "))
+    
+    nroTemp = nro
+    digitos = 0
+    while nroTemp > 0:
+        nroTemp = nroTemp // 10
+        digitos += 1
+
+    contador = 0
+    for i in range(digitos):
+        digito = nro % 10
+        if digito == digitoAEncontrar:
+            contador += 1
+
+        nro = nro // 10
+
+    print(f"El número de veces que aparece el número {digitoAEncontrar} en {nro} es de {contador}")
+
+def promedioLabWhile():
+    nroEstudianesN = int(input("Ingrese el número de estudiantes de la asignatuda de PC: "))
+    while nroEstudianesN <= 0:
+        print("El númer de estudiantes no puede ser menor a 0")
+        nroEstudianesN = int(input("Ingrese el número de estudiantes de la asignatuda de PC: "))
+
+    nroEstudianesM = int(input("Ingrese el número de estudiantes de la asignatuda de TI: "))
+    while nroEstudianesM <= 0:
+        print("El númer de estudiantes no puede ser menor a 0")
+        nroEstudianesM = int(input("Ingrese el número de estudiantes de la asignatuda de T: "))
+
+    estudianteN = 0
+    sumaPromedioN = 0
+    while estudianteN < nroEstudianesN:
+        estudianteN += 1
+        notaPromedioN = int(input(f"Ingrese el promedio del estudiante {estudianteN} en PC: "))
+        while (notaPromedioN < 0) or (notaPromedioN > 20):
+            print("La nota debe de estar entre 0 y 20")
+            notaPromedioN = int(input(f"Ingrese el promedio del estudiante {estudianteN} en PC: "))
+        sumaPromedioN += notaPromedioN
+
+    promedioLabN = sumaPromedioN / nroEstudianesN
+
+    estudianteM = 0
+    sumaPromedioM = 0
+    while estudianteM < nroEstudianesM:
+        estudianteM += 1
+        notaPromedioM = int(input(f"Ingrese el promedio del estudiante {estudianteM} en PC: "))
+        while (notaPromedioM < 0) or (notaPromedioM > 20):
+            print("La nota debe de estar entre 0 y 20")
+            notaPromedioM = int(input(f"Ingrese el promedio del estudiante {estudianteM} en PC: "))
+        sumaPromedioM += notaPromedioM
+    
+    promedioLabM = sumaPromedioM / nroEstudianesM
+
+    promedioLab = (sumaPromedioN + sumaPromedioM) / (nroEstudianesN + nroEstudianesM)
+    print(f"El promedio del laboratorio es {promedioLab}")
+    return promedioLab
+
+def promedioLabFor():
+    nroEstudianesN = int(input("Ingrese el número de estudiantes de la asignatuda de PC: "))
+    while nroEstudianesN <= 0:
+        print("El númer de estudiantes no puede ser menor a 0")
+        nroEstudianesN = int(input("Ingrese el número de estudiantes de la asignatuda de PC: "))
+
+    nroEstudianesM = int(input("Ingrese el número de estudiantes de la asignatuda de TI: "))
+    while nroEstudianesM <= 0:
+        print("El númer de estudiantes no puede ser menor a 0")
+        nroEstudianesM = int(input("Ingrese el número de estudiantes de la asignatuda de T: "))
+
+    # Para PC
+    sumaPromedioN = 0
+    for estudianteN in range(nroEstudianesN):
+        notaPromedioN = int(input(f"Ingrese el promedio del estudiante {estudianteN + 1} en PC: "))
+        while (notaPromedioN < 0) or (notaPromedioN > 20):
+            print("La nota debe de estar entre 0 y 20")
+            notaPromedioN = int(input(f"Ingrese el promedio del estudiante {estudianteN + 1} en PC: "))
+        sumaPromedioN += notaPromedioN
+    promedioLabN = sumaPromedioN / nroEstudianesN
+
+    sumaPromedioM = 0
+    for estudianteM in range(nroEstudianesM):
+        notaPromedioM = int(input(f"Ingrese el promedio del estudiante {estudianteM + 1} en PC: "))
+        while (notaPromedioM < 0) or (notaPromedioM > 20):
+            print("La nota debe de estar entre 0 y 20")
+            notaPromedioM = int(input(f"Ingrese el promedio del estudiante {estudianteM + 1} en PC: "))
+        sumaPromedioM += notaPromedioM
+    promedioLabM = sumaPromedioM / nroEstudianesM
+
+    promedioLab = (sumaPromedioN + sumaPromedioM) / (nroEstudianesN + nroEstudianesM)
+    print(f"El promedio del laboratorio es {promedioLab}")
+    return promedioLab
+
+def cobrarCuotaWhile():
+    M = int(input("Ingrese el monto base que se va a cobrar: "))
+    while M < 0:
+        print("El monto no puede ser menor a 0...")
+        M = int(input("Ingrese el monto base que se va a cobrar: "))
+    
+    N = int(input("Ingrese el número de compañeros: "))
+    while M <= 0:
+        print("El numero de compañeros no puede ser 0 ni menor a 0...")
+        N = int(input("Ingrese el número de compañeros: "))
+    
+    totalRecaudado = 0
+    i = 0
+    while i < N:
+        i += 1
+        print(f"Cobrando al compañero nro. {i}")
+        nota = int(input("La nota del compañero: "))
+        while (nota < 0) or (nota > 20):
+            print("La nota no puede ser menor a 0 ni mayor a 20")
+            nota = int(input("La nota del compañero: "))
+
+        if nota == 20:
+            descuento = 0.5
+        elif nota >= 17:
+            descuento = 0.3
+        else:
+            descuento = 0
+        montoCobradoI = M - M*descuento
+        print(f"Se cobró {montoCobradoI}")
+        totalRecaudado += montoCobradoI
+    print(f"Se recaudó un total de S/.{totalRecaudado}")
+
+def cobrarCuotaFor():
+    M = int(input("Ingrese el monto base que se va a cobrar: "))
+    while M < 0:
+        print("El monto no puede ser menor a 0...")
+        M = int(input("Ingrese el monto base que se va a cobrar: "))
+    
+    N = int(input("Ingrese el número de compañeros: "))
+    while M <= 0:
+        print("El numero de compañeros no puede ser 0 ni menor a 0...")
+        N = int(input("Ingrese el número de compañeros: "))
+
+    totalRecaudado = 0
+    for i in range(N):
+        print(f"Cobrando al compañero nro. {i + 1}")
+        nota = int(input("La nota del compañero: "))
+        while (nota < 0) or (nota > 20):
+            print("La nota no puede ser menor a 0 ni mayor a 20")
+            nota = int(input("La nota del compañero: "))
+
+        if nota == 20:
+            descuento = 0.5
+        elif nota >= 17:
+            descuento = 0.3
+        else:
+            descuento = 0
+        montoCobradoI = M - M*descuento
+        print(f"Se cobró {montoCobradoI}")
+        totalRecaudado += montoCobradoI
+    print(f"Se recaudó un total de S/.{totalRecaudado}")
+
+def dibujarTriangulo():
+    n = int(input("Ingrese la altura del triángulo: "))
+    while n <= 0:
+        print("La altura no puede ser menor o igual a 0...")
+        n = int(input("Ingrese la altura del triángulo: "))
+    
+    print()
+    
+    h = 0
+    while h < n:
+        h += 1
+        print("*"*h)
+
+def contarVocales():
+    texto = input("Ingrese una palabra o frase\n")
+    nroVocales = 0
+    for i in range(len(texto)):
+        cAct = texto[i]
+        if (cAct == "a") or (cAct == "e") or (cAct == "i") or (cAct == "o") or (cAct == "u") or (cAct == "A") or (cAct == "E") or (cAct == "I") or (cAct == "O") or (cAct == "U"):
+            nroVocales += 1
+    print(f"La palabra/texto contiene {nroVocales} vocales")
+
+def sumarParImpar():
+    n = int(input("Ingrese un número entero positivo: "))
+    while n <= 0:
+        print("El número no puede ser menor o igual a 0")
+        n = int(input("Ingrese un número entero positivo: "))
+
+    sumaPar = 0
+    sumaImpar = 0
+    for i in range(1, n+1):
+        if i % 2 == 0:
+            sumaPar += i
+        else:
+            sumaImpar += i
+    
+    print(f"La suma de los números pares de 1 hasta {n} es {sumaPar}")
+    print(f"La suma de los números impares de 1 hasta {n} es {sumaImpar}")
+
+def printTermFibonacci():
+    nroTerm = int(input("Ingrese el número de términos a imprimir: "))
+    while nroTerm <= 0:
+        print("El número de términos debe ser un número entero positivo.")
+        nroTerm = int(input("Ingrese el número de términos a imprimir: "))
+
+    term1 = 0
+    term2 = 1
+
+    print("Serie Fibonacci:")
+    for i in range(nroTerm):
+        print(str(term1) + " ")
+        termAux = term1
+        term1 = term2
+        term2 = termAux + term2

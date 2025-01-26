@@ -1,1 +1,5 @@
-from math_lib import *
+def main():
+    print("Test")
+
+if __name__ == "__main__":
+    main()

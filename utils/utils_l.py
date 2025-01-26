@@ -2,14 +2,14 @@ from enum import Enum
 from sys import maxsize
 import os
 
-_minIntValue: int = -maxsize
-_maxIntValue: int = maxsize
-_minFloatValue: float = -float("inf")
-_maxFloatValue: float = float("inf")
+MIN_INT: int = -maxsize
+MAX_INT: int = maxsize
+MIN_FLOAT: float = -float("inf")
+MAX_FLOAT: float = float("inf")
 
 
-def sanitizeInputInt(msg: str = "", vmin: int = _minIntValue, vmax: int = _maxIntValue, errorMsg: str = "ERROR. Input must be an integer", errorOutOfRange: str = "defaultT", exitKey: str = "q", useExitKey: bool = True) -> int:
-    if errorOutOfRange == "defaultT":
+def sanitizeInputInt(msg: str = "", vmin: int = MIN_INT, vmax: int = MAX_INT, errorMsg: str = "ERROR. Input must be an integer", errorOutOfRange: str = "default", exitKey: str = "q", useExitKey: bool = True) -> int:
+    if errorOutOfRange == "default":
         errorOutOfRange = f"Please enter a number between {vmin} and {vmax}."
     while True:
         userInput = input(msg)
@@ -25,7 +25,7 @@ def sanitizeInputInt(msg: str = "", vmin: int = _minIntValue, vmax: int = _maxIn
         except ValueError:
             print(errorMsg)
 
-def sanitizeInputFloat(msg: str = "", vmin: float = _minFloatValue, vmax: float = _maxFloatValue, errorMsg: str = "ERROR. Input must be a float.", exitKey: str = "q", useExitKey: bool = True) -> float:
+def sanitizeInputFloat(msg: str = "", vmin: float = MIN_FLOAT, vmax: float = MAX_FLOAT, errorMsg: str = "ERROR. Input must be a float.", exitKey: str = "q", useExitKey: bool = True) -> float:
     userInput = input(msg)
     if userInput == exitKey and useExitKey == True:
         print("Exiting input...")
